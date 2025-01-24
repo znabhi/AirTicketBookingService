@@ -13,6 +13,8 @@ const createBooking = async (req, res) => {
       error: null,
     });
   } catch (error) {
+    console.log(error);
+
     return res.status(500).json({
       data: null,
       success: false,

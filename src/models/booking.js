@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       totalCost: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        defaultValue: 0,
+        // defaultValue: 0,
       },
     },
     {

@@ -8,8 +8,16 @@ const { REMINDER_BINDING_KEY } = require("../config/serverConfig");
 const sendMessageToQueue = async (req, res) => {
   try {
     const channel = await createChannel();
-    const data = { message: "Success" };
-    publishMessage(channel, REMINDER_BINDING_KEY, JSON.stringify(data));
+    const payload = {
+      data: {
+        subject: "this is from queues",
+        content: "hellow whats up",
+        recepientEmail: "chotu12584@gmail.com",
+        notificationTime: "2025",
+      },
+      service: "CREATE_TOKEN",
+    };
+    publishMessage(channel, REMINDER_BINDING_KEY, JSON.stringify(payload));
     return res.status(200).json({
       message: "successfully published the event",
     });

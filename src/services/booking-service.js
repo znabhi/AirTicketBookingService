@@ -14,15 +14,21 @@ class BookingService {
 
       const response = await axios.get(getFlightRequestUrl);
       const flightData = response.data.data;
+
       const priceOfTheFlight = flightData.price;
-      if (data.noOfSeats > flightData.totalSeats) {
+
+      const noOfSeats = data.noOfSeats !== undefined ? data.noOfSeats : 1;
+      const totalCost = priceOfTheFlight * noOfSeats;
+
+      if (noOfSeats > flightData.totalSeats) {
         throw new ServiceError(
           "Something went wrong in the booking process",
           "Insufficient seats in the flight"
         );
       }
-      const totalCost = priceOfTheFlight * data.noOfSeats;
+
       const bookingPayload = { ...data, totalCost };
+
       const booking = await this.bookingRepository.createBooking(
         bookingPayload
       );
